@@ -27,11 +27,10 @@ def randomGrid(size):
     np.random.seed(0)
     grid = np.zeros((size, size), dtype=bool)
     random = np.random.random((size-2, size-2))
-    grid[1:size-1, 1:size-1] = (random > 0.5)
+    grid[1:size-1, 1:size-1] = (random > 0.75)
+    return grid
 
 def steps(size,times):
-    
-    #grid=np.array([[0,0,0,0,0,0,0],[0,0,1,0,0,0,0],[0,0,0,1,0,0,0],[0,1,1,1,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0]])
     #applying rules to grid
     for m in range(times):
         grid=newGrid(size,grid)
@@ -42,19 +41,18 @@ def steps(size,times):
 def life(size,times):
     for i in range(times):
         if i == 0:
+            grid = randomGrid(size)
             p = plt.imshow(grid)
             fig = plt.gcf()
-            plt.clim()   # clamp the color limits
+            sumAlive = sum(sum(grid))
+            print sumAlive
             plt.title("Boring slide show")
+            print "a"
         else:
-            z = z + 2
-            p.set_data(z)
-
-        print("step", i)
-        plt.pause(0.5)
-    plt.axis('off')
-    plt.imshow(steps(size,times),cmap='Greys',  interpolation='nearest')
-    plt.show()
-
-    
-life(100,1000)
+            grid = newGrid(size,grid)
+            p.set_data(grid)
+            sumAlive = sum(sum(grid))
+            print sumAlive
+            print "b"
+        #,cmap='Greys',  interpolation='nearest'
+life(100,10)
