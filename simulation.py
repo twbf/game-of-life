@@ -7,7 +7,10 @@ import numpy as np
 def neighbors(data,i,j): #data is the list and position is in the form data[i[j]]
     neighbors = [data[i+1][j],data[i][j+1],data[i-1][j],data[i][j-1],data[i-1][j+1],data[i+1][j-1],data[i+1][j+1],data[i-1][j-1]]
     return sum(neighbors)
-
+    
+def sumAlive(grid)
+    return sum(sum(grid))
+    
 def newGrid(size,oldGrid):
     grid = oldGrid.copy()
     for n in range(1,size-1):
@@ -41,11 +44,13 @@ def life(size,times):
     fig = plt.gcf()
     plt.axis("off")
     plt.title("Life")
+    print sumAlive
     print "a"
     for i in range(times-1):
         grid = newGrid(size,grid)
         p.set_data(grid)
         print "b"
+        print sumAlive
         #print grid
         plt.pause(0.0001)
 
