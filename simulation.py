@@ -11,17 +11,14 @@ def neighbors(data,i,j): #data is the list and position is in the form data[i[j]
 def sumAlive(grid):
     return np.sum(grid)
     
-def newGrid(size,oldGrid):
+def newGrid(size,oldGrid,aliveRules,deadRules):
     grid = oldGrid.copy()
     for n in range(1,size-1):
         for o in range(1,size-1):
             if grid[n][o] == 1:
-                if neighbors(oldGrid,n,o) in (2,3):
-                    grid[n][o] = 1
-                else:
-                    grid[n][o] = 0
+                grid[n][o] = (neighbors(oldGrid,n,o) in aliveRules)
             else:
-                if neighbors(oldGrid,n,o)==3:
+                if neighbors(oldGrid,n,o) in deadRules:
                     grid[n][o] = 1
     return grid
 
@@ -32,11 +29,11 @@ def randomGrid(size):
     grid[1:size-1, 1:size-1] = (random > 0.8)
     return grid
 
-def life(size,times,):
-    grid = np.zeros((size, size), dtype=bool)
-    grid[2:5,2:5] = np.array([[0,1,0],
-                              [0,0,1],
-                              [1,1,1]])
+def life(size,times,aliveRules=(2,3),deadRules=(3,)):#If thier are multiple values for aliveRules and deadRules you need to seperate them with a comma
+    #grid = np.zeros((size, size), dtype=bool)
+    #grid[2:5,2:5] = np.array([[0,1,0],
+    #                          [0,0,1],
+     #                         [1,1,1]])
     grid = randomGrid(size)
     p = plt.imshow(grid,cmap='Greys',interpolation='nearest')
     fig = plt.gcf()
@@ -44,16 +41,15 @@ def life(size,times,):
     plt.title("Game of Life")
    # plt.savefig('project1.png')
     print sumAlive(grid)
-    print "a"
     for i in range(times-1):
-        grid = newGrid(size,grid)
+        grid = newGrid(size,grid,aliveRules,deadRules)
         p.set_data(grid)
-        print "b"
         print sumAlive(grid)
         #print grid
         plt.pause(0.000001)
        # plt.savefig('project'+str(i+2)+'.png')
 
-life(100,1000)
+rules = {'regular':[(2,3),(3,)], 'decrease':[(1,2),(1,)], 'increased':[(3,4),(4,)],' massive increase':[(5,6),(6,)], 'wideRange':[(2,3,4,5),(3,4,5)], 'upper-wideRange':[(4,5,6,7),(5,6,7)]}
+life(400,100,rules['regular'][0],rules['regular'][1])
 
 # notes:   use plt.savefig('foo.png')
