@@ -40,16 +40,17 @@ def life(size,times,aliveRules=(2,3),deadRules=(3,)):#If thier are multiple valu
     plt.axis("off")
     plt.title("Game of Life")
    # plt.savefig('project1.png')
-    print sumAlive(grid)
+    alive = [sumAlive(grid)]
     for i in range(times-1):
         grid = newGrid(size,grid,aliveRules,deadRules)
         p.set_data(grid)
-        print sumAlive(grid)
+        alive.append(sumAlive(grid))
         #print grid
         plt.pause(0.000001)
+    return alive
        # plt.savefig('project'+str(i+2)+'.png')
 
 rules = {'regular':[(2,3),(3,)], 'decrease':[(1,2),(1,)], 'increased':[(3,4),(4,)],' massive increase':[(5,6),(6,)], 'wideRange':[(2,3,4,5),(3,4,5)], 'upper-wideRange':[(4,5,6,7),(5,6,7)]}
-life(400,100,rules['regular'][0],rules['regular'][1])
+#life(400,100,rules['regular'][0],rules['regular'][1])
 
 # notes:   use plt.savefig('foo.png')
