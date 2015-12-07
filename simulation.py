@@ -26,31 +26,36 @@ def randomGrid(size):
     #creating random number grid
     grid = np.zeros((size, size), dtype=bool)
     random = np.random.random((size-2, size-2))
-    grid[1:size-1, 1:size-1] = (random > 0.8)
+    grid[1:size-1, 1:size-1] = (random > 0.85)
     return grid
 
-def life(size,times,aliveRules=(2,3),deadRules=(3,)):#If thier are multiple values for aliveRules and deadRules you need to seperate them with a comma
+def life(size,times,aliveRules=(2,3),deadRules=(3,),animate=True):#If thier are multiple values for aliveRules and deadRules you need to seperate them with a comma
     #grid = np.zeros((size, size), dtype=bool)
     #grid[2:5,2:5] = np.array([[0,1,0],
     #                          [0,0,1],
      #                         [1,1,1]])
     grid = randomGrid(size)
-    p = plt.imshow(grid,cmap='Greys',interpolation='nearest')
-    fig = plt.gcf()
-    plt.axis("off")
-    plt.title("Game of Life")
-   # plt.savefig('project1.png')
+    if animate==True:
+        p = plt.imshow(grid,cmap='Greys',interpolation='nearest')
+        fig = plt.gcf()
+        plt.axis("off")
+        plt.title("Game of Life")
     alive = [sumAlive(grid)]
-    for i in range(times-1):
+    for i in range(times):
         grid = newGrid(size,grid,aliveRules,deadRules)
-        p.set_data(grid)
+        if animate==True:p.set_data(grid)
         alive.append(sumAlive(grid))
-        #print grid
-        plt.pause(0.000001)
+        plt.pause(0.00000001)
+        print i
     return alive
        # plt.savefig('project'+str(i+2)+'.png')
 
-rules = {'regular':[(2,3),(3,)], 'decrease':[(1,2),(1,)], 'increased':[(3,4),(4,)],' massive increase':[(5,6),(6,)], 'wideRange':[(2,3,4,5),(3,4,5)], 'upper-wideRange':[(4,5,6,7),(5,6,7)]}
-#life(400,100,rules['regular'][0],rules['regular'][1])
+rules = {"Conway's Game of Life":[(2,3),(3,)],
+         'Rule 1':[(2,3),(2,3)],
+         'Rule 2':[(1,2),(1,)],
+         'Rule 3':[(3,4),(4,)],
+         'Rule 4':[(5,6),(6,)],
+         'Rule 5':[(2,3,4,5),(3,4,5)],
+         'Rule 6':[(4,5,6,7),(5,6,7)]}
 
 # notes:   use plt.savefig('foo.png')
