@@ -19,10 +19,7 @@ def p1(rule):
     plt.legend(loc='upper right')
     plt.savefig(rule+'-graph.png',dpi=1000)
 
-p1("Rule 1")
-p1("Rule 2")
-p1("Rule 3")
-p1("Rule 4")
-p1("Rule 5")
-p1("Rule 6")
-
+def p2(rule):
+    life(200,60,rule,rules[rule][0],rules[rule][1],animate=True)
+    
+p2("Conway's Game of Life")

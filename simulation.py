@@ -29,7 +29,7 @@ def randomGrid(size):
     grid[1:size-1, 1:size-1] = (random > 0.85)
     return grid
 
-def life(size,times,aliveRules=(2,3),deadRules=(3,),animate=True):#If thier are multiple values for aliveRules and deadRules you need to seperate them with a comma
+def life(size,times,rule,aliveRules=(2,3),deadRules=(3,),animate=True,save=True):#If thier are multiple values for aliveRules and deadRules you need to seperate them with a comma
     #grid = np.zeros((size, size), dtype=bool)
     #grid[2:5,2:5] = np.array([[0,1,0],
     #                          [0,0,1],
@@ -39,16 +39,20 @@ def life(size,times,aliveRules=(2,3),deadRules=(3,),animate=True):#If thier are 
         p = plt.imshow(grid,cmap='Greys',interpolation='nearest')
         fig = plt.gcf()
         plt.axis("off")
-        plt.title("Game of Life")
+        plt.title(rule+' Frame 1')
+        plt.savefig(rule+'1.png', dpi=300)
     alive = [sumAlive(grid)]
-    for i in range(times):
+    print "1"
+    for i in range(times-1):
         grid = newGrid(size,grid,aliveRules,deadRules)
         if animate==True:p.set_data(grid)
         alive.append(sumAlive(grid))
         plt.pause(0.00000001)
-        print i
+        plt.title(rule+': Frame '+str(i+2))
+        plt.savefig(rule+str(i+2)+'.png', dpi=300)
+        print i+2
     return alive
-       # plt.savefig('project'+str(i+2)+'.png')
+        
 
 rules = {"Conway's Game of Life":[(2,3),(3,)],
          'Rule 1':[(2,3),(2,3)],
