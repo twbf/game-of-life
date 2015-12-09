@@ -20,6 +20,6 @@ def p1(rule):
     plt.savefig(rule+'-graph.png',dpi=1000)
 
 def p2(rule):
-    life(200,60,rule,rules[rule][0],rules[rule][1],animate=True)
+    life(7,9,rule,rules[rule][0],rules[rule][1],animate=True,save=False)
     
 p2("Conway's Game of Life")

@@ -30,16 +30,16 @@ def randomGrid(size):
     return grid
 
 def life(size,times,rule,aliveRules=(2,3),deadRules=(3,),animate=True,save=True):#If thier are multiple values for aliveRules and deadRules you need to seperate them with a comma
-    #grid = np.zeros((size, size), dtype=bool)
-    #grid[2:5,2:5] = np.array([[0,1,0],
-    #                          [0,0,1],
-     #                         [1,1,1]])
-    grid = randomGrid(size)
+    grid = np.zeros((size, size), dtype=bool)
+    grid[1:4,1:4] = np.array([[0,1,0],
+                              [0,0,1],
+                              [1,1,1]])
+    #grid = randomGrid(size)
     if animate==True:
         p = plt.imshow(grid,cmap='Greys',interpolation='nearest')
         fig = plt.gcf()
         plt.axis("off")
-        plt.title(rule+' Frame 1')
+        plt.title('Glider: Frame 1')
         plt.savefig(rule+'1.png', dpi=300)
     alive = [sumAlive(grid)]
     print "1"
@@ -48,7 +48,7 @@ def life(size,times,rule,aliveRules=(2,3),deadRules=(3,),animate=True,save=True)
         if animate==True:p.set_data(grid)
         alive.append(sumAlive(grid))
         plt.pause(0.00000001)
-        plt.title(rule+': Frame '+str(i+2))
+        plt.title('Glider: Frame '+str(i+2))
         plt.savefig(rule+str(i+2)+'.png', dpi=300)
         print i+2
     return alive
