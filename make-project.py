@@ -29,7 +29,7 @@ class game():
             plt.title(rule)
             plt.grid(True)
             plt.legend(loc='upper right')
-            plt.savefig(rule+'-graph.png',dpi=1000)
+            plt.savefig(rule+'graph.png',dpi=1000)
             
         
 game = game()
